@@ -1,0 +1,38 @@
+# Global variables
+server_ip = '192.168.56.110'
+worker_ip = '192.168.56.111'
+
+# Iteration nodes for vagrant configure
+nodes = [
+    { name: "dagudeloS", ip: server_ip, path: "scripts/server.sh", role: "server" },
+    { name: "dagudeloSW", ip: worker_ip, path: "scripts/worker.sh", role: "agent" }
+]
+
+Vagrant.configure("2") do |project|
+    # Offline mode to avoid the need to connect to the internet
+    # It leaves the machine without a public key
+    # Vagrant saves the insecure key by default inside Debian machine/box
+    # Faster startup time
+    project.ssh.insert_key = false
+
+    nodes.each do |node|
+        project.vm.define node[:name] do |box|
+            box.vm.box = "debian/bookworm64"
+            box.vm.hostname = node[:name]
+            box.vm.network "private_network", type:"dhcp", ip: node[:ip], primary: true
+            box.vm.provision "shell",
+                env: {
+                    'SERVER_IP' => server_ip,
+                    'WORKER_IP' => worker_ip
+                },
+                path: node[:path]
+            box.vm.provider "libvirt" do |provider|
+                provider.memory = 1024
+                provider.cpus = 1
+                provider.driver = "kvm"
+                provider.machine_type = "pc"
+                provider.uri = "qemu:///system"
+            end
+        end
+    end
+end

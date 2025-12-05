@@ -1,0 +1,97 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    align-items: center;
+    background: #f2f4f8;
+    color: #1f2933;
+    display: flex;
+    font-family: "Segoe UI", Arial, sans-serif;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px;
+}
+
+.card {
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+    max-width: 420px;
+    padding: 32px 28px;
+    text-align: center;
+    width: 100%;
+}
+
+.logo {
+    margin-bottom: 20px;
+}
+
+.logo img {
+    height: 56px;
+    width: 56px;
+}
+
+.title {
+    font-size: 2rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.subtitle {
+    color: #4b5563;
+    font-size: 1rem;
+    margin-bottom: 24px;
+}
+
+.badge {
+    background-color: #e5f2ff;
+    border-radius: 999px;
+    color: #2563eb;
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    margin-bottom: 28px;
+    padding: 8px 16px;
+    text-transform: uppercase;
+}
+
+.metrics {
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 16px 20px;
+    text-align: left;
+}
+
+.metrics dt {
+    color: #6b7280;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.metrics dd {
+    color: #1f2933;
+    font-size: 0.95rem;
+    margin: 6px 0 16px;
+    word-break: break-word;
+}
+
+.metrics dd:last-of-type {
+    margin-bottom: 0;
+}
+
+.footer {
+    color: #6b7280;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    margin-top: 20px;
+    text-transform: uppercase;
+}
+

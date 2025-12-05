@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iot-p3-deployment
+  namespace: dev
+spec:
+  replicas: 1
+  selector: 
+    matchLabels: 
+     app: iot-p3-playground
+  template:
+    metadata:
+      labels:
+        app: iot-p3-playground
+    spec:
+      containers:
+        - name: chrisap75-playground
+          image: chrisap75/calbor-p-p3:v1
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: iot-p3-playground-service
+  namespace: dev
+spec:
+  selector:
+    app: iot-p3-playground
+  ports:
+    - protocol: TCP
+      port: 8888
+      targetPort: 80
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: iot-p3-ingress
+  namespace: dev
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: iot-p3-playground-service
+            port:
+              number: 8888
