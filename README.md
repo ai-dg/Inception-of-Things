@@ -586,12 +586,6 @@ If you wish to use or study this code, please ensure it complies with **your sch
 
 ---
 
-## 👥 Authors
-
-**dagudelo** - 42 School Student
-
----
-
 ## 🙏 Acknowledgments
 
 - 42 School for the project subject
