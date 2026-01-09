@@ -7,7 +7,7 @@
 **A comprehensive introduction to Kubernetes using K3s, K3d, Vagrant, and GitOps practices with ArgoCD**
 
 > Learn Kubernetes fundamentals by setting up clusters, deploying applications, and implementing continuous deployment with ArgoCD and GitLab.
-<img width="1211" height="1334" alt="image" src="https://github.com/user-attachments/assets/b8ecbecb-40bb-470d-b198-ec7aee44c79c" />
+<!-- <img width="1211" height="1334" alt="image" src="https://github.com/user-attachments/assets/b8ecbecb-40bb-470d-b198-ec7aee44c79c" /> -->
 
 
 ---
