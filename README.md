@@ -94,7 +94,7 @@ Inception-of-Things/
     │   ├── setup.yaml          # Kubernetes resources
     │   └── app/                # Application Docker image
     ├── gitlab/
-    │   └── deployment.yaml     # GitLab Kubernetes manifests
+    │   └── deployment.yaml     # App manifests pushed to the GitLab repo
     └── scripts/
         ├── install.sh          # Install dependencies
         ├── setup.sh            # Setup GitLab + ArgoCD
@@ -179,9 +179,9 @@ Inception-of-Things/
 
 **For Parts 1 & 2 (Vagrant-based)**:
 - Vagrant (latest version)
-- VirtualBox or Libvirt provider
+- Libvirt provider (vagrant-libvirt, KVM)
 - 4GB+ RAM available
-- Linux/macOS/Windows host
+- Linux host (KVM)
 
 **For Part 3 & Bonus (K3d-based)**:
 - Docker (20.10+)
@@ -204,12 +204,12 @@ make up
 make status
 
 # SSH into server
-make ssh-server
+vagrant ssh dagudeloS
 
 # SSH into worker
-make ssh-worker
+vagrant ssh dagudeloSW
 
-# Destroy cluster
+# Stop VMs (make clean destroys them)
 make down
 ```
 
@@ -221,7 +221,7 @@ cd p2
 # Start VM and deploy apps
 make up
 
-# Check deployments
+# Check VM status
 make status
 
 # Test applications
@@ -229,7 +229,7 @@ curl -H "Host: app1.com" http://192.168.56.110
 curl -H "Host: app2.com" http://192.168.56.110
 curl http://192.168.56.110  # Default: app3
 
-# Destroy VM
+# Stop VM (make clean destroys it)
 make down
 ```
 
@@ -242,7 +242,7 @@ cd p3
 make install
 
 # Create cluster and setup ArgoCD
-make setup
+make up
 
 # Access ArgoCD UI
 make access
@@ -260,13 +260,13 @@ cd bonus
 make install
 
 # Setup GitLab and ArgoCD
-make setup
+make build
 
 # Access services
 make access
 
-# Clean up
-make clean
+# Stop the cluster
+make stop
 ```
 
 ---
@@ -284,8 +284,8 @@ kubectl get nodes
 
 # Expected output:
 # NAME          STATUS   ROLES                  AGE   VERSION
-# dagudelows    Ready    <none>                 5m    v1.28.x
-# dagudeloss    Ready    control-plane,master   5m    v1.28.x
+# dagudelos     Ready    control-plane,master   5m    v1.xx.x+k3s1
+# dagudelosw    Ready    <none>                 5m    v1.xx.x+k3s1
 
 # Check pods
 kubectl get pods -A
@@ -385,7 +385,7 @@ kubectl port-forward -n gitlab svc/gitlab-webservice-default 8181:8181
 |-----------|-----------|---------|------|
 | **GitLab CE** | gitlab | gitlab-webservice-default | 8181 |
 | **ArgoCD** | argocd | argocd-server | 443 |
-| **Application** | dev | app-service | 80 |
+| **Application** | dev | iot-p3-playground-service | 8888 |
 
 ---
 
@@ -491,7 +491,7 @@ After completing this project, you will understand:
 - ✅ **Part 1**: 2-node K3s cluster with Vagrant
   - Server and worker nodes with correct IPs
   - SSH access without password
-  - kubectl working on both nodes
+  - kubectl working on the server node
 
 - ✅ **Part 2**: 3 applications with Ingress
   - Host-based routing (app1.com, app2.com, default)
